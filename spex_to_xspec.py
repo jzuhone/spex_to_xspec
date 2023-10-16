@@ -289,13 +289,13 @@ def interpretDumpedLines(T):
         if rline.strip()[:1] in digits:
             # data lines start with numbers
             # horribly, have to hard code in column numbers here
-            element = element_nums[rline[9:12].strip()]
-            ion = roman_to_number[ rline[12:17].strip() ]
-            wavelength = cnvtNum( rline[102:115] )
-            energy_keV = cnvtNum( rline[87:100] )
+            element = element_nums[rline[7:9].strip()]
+            ion = roman_to_number[ rline[10:16].strip() ]
+            wavelength = cnvtNum( rline[137:144] )
+            energy_keV = cnvtNum( rline[121:129] )
 
             # convert from total photon flux to normalised photon flux
-            epsilon = cnvtNum( rline[117:126] ) / norm_factor_cm3
+            epsilon = cnvtNum( rline[151:160] ) / norm_factor_cm3
 
             # skip lines out of energy range
             if energy_keV<contminenergy or energy_keV>contmaxenergy:
