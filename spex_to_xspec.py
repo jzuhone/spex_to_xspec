@@ -153,7 +153,7 @@ def writeSelectFile():
     outfile = os.path.join(tmpdir, 'mysel.dat')
     with open(outfile, "w") as fobj:
         print('sel flux 0E+0 1E+99', file=fobj)
-        print('sel ener 0.5 2.0', file=fobj)
+        print(f'sel ener {contminenergy} {contmaxenergy}', file=fobj)
 
 def writeScriptElements(fobj, elements, val):
     """Write commands to set abundance to val."""
