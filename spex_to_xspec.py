@@ -148,6 +148,12 @@ def cnvtNum(s):
             v = float(a)*10**float(b)
     return v
 
+def writeSelectFile():
+    outfile = os.path.join(tmpdir, 'mysel.dat')
+    with open(outfile, "w") as fobj:
+        print('sel flux 0E+0 1E+99', file=fobj)
+        print('sel ener 0.5 2.0', file=fobj)
+
 def writeScriptElements(fobj, elements, val):
     """Write commands to set abundance to val."""
     for e in elements:
@@ -166,9 +172,7 @@ def writeScriptLines(fobj, T):
 
     # dump out lines
     outfile = os.path.join(tmpdir, 'tmp_lines_T%010f' % T)
-    print('ascdump set flux 0', file=fobj)
-    print('ascdump set range %g:%g unit kev' % (contminenergy, contmaxenergy), file=fobj)
-    print('ascdump file %s 1 1 line' % outfile, file=fobj)
+    print(f'ascdump file {outfile} 1 1 line key {tmpdir}/mysel.dat', file=fobj)
 
     writeScriptElements(fobj, apec_elements, 0)
 
@@ -178,14 +182,13 @@ def writeScriptContinuua(fobj, T):
 
     print('calc', file=fobj)
     outfile = os.path.join(tmpdir, 'tmp_conti_T%010f_%s' % (T, 'H'))
-    print('ascdump file %s 1 1 tcl' % outfile, file=fobj)
+    print(f'ascdump file {outfile} 1 1 tcl key {tmpdir}/mysel.dat', file=fobj)
 
     for el in apec_elements:
         writeScriptElements(fobj, (el,), continuum_mult)
         print('calc', file=fobj)
         outfile = os.path.join(tmpdir, 'tmp_conti_T%010f_%s' % (T, el))
-        print('ascdump set range %g:%g unit kev' % (contminenergy, contmaxenergy), file=fobj)
-        print('ascdump file %s 1 1 tcl' % outfile, file=fobj)
+        print(f'ascdump file {outfile} 1 1 tcl key {tmpdir}/mysel.dat', file=fobj)
         writeScriptElements(fobj, (el,), 0)
 
 def writeScript(fobj, T):
@@ -515,6 +518,7 @@ def interpretAllContinuum(weaklinelist):
 
 def main():
     """Main routine."""
+    writeSelectFile()
     generateOutput()
     weaklinelist = interpretAllLines()
     interpretAllContinuum(weaklinelist)
