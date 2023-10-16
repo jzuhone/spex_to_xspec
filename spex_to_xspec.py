@@ -4,12 +4,13 @@
 # The lines and continuum are then gathered up, and stored in an apec-format
 # table model for xspec
 
-# Jeremy Sanders 2005-2022
+# Jeremy Sanders 2005-2023
 
 # Version 2.0 (2018-07-31): Support SPEX 3.04
 # Version 2.1 (2020-07-12): Pseudo-continuum implementation
 # Version 2.2 (2020-09-22): Fixes for SPEX 3.06. Change default binning.
 # Version 2.3 (2022-03-08): Fixes for SPEX 3.06.01 (now required). Add trace elements.
+# Version 2.4 (2023-10-16): Fixes for SPEX 3.07.03 (now required).
 
 import os
 import subprocess
