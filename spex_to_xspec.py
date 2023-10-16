@@ -155,6 +155,9 @@ def writeSelectFile():
         print('sel flux 0E+0 1E+99', file=fobj)
         print(f'sel ener {contminenergy} {contmaxenergy}', file=fobj)
 
+def removeSelectFile():
+    deleteFile(os.path.join(tmpdir, 'mysel.dat'))
+
 def writeScriptElements(fobj, elements, val):
     """Write commands to set abundance to val."""
     for e in elements:
@@ -523,6 +526,7 @@ def main():
     generateOutput()
     weaklinelist = interpretAllLines()
     interpretAllContinuum(weaklinelist)
+    removeSelectFile()
 
 if __name__ == '__main__':
     main()
