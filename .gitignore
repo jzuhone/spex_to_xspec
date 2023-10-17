@@ -1,3 +1,4 @@
 workdir/*.asc
 workdir/mysel.dat
 *.dum
+*.fits
