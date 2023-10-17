@@ -295,11 +295,11 @@ def interpretDumpedLines(T):
             # horribly, have to hard code in column numbers here
             element = element_nums[rline[7:9].strip()]
             ion = roman_to_number[ rline[10:16].strip() ]
-            wavelength = cnvtNum( rline[137:144] )
-            energy_keV = cnvtNum( rline[121:129] )
+            wavelength = cnvtNum( rline[136:148] )
+            energy_keV = cnvtNum( rline[120:133] )
 
             # convert from total photon flux to normalised photon flux
-            epsilon = cnvtNum( rline[151:160] ) / norm_factor_cm3
+            epsilon = cnvtNum( rline[150:160] ) / norm_factor_cm3
 
             # skip lines out of energy range
             if energy_keV<contminenergy or energy_keV>contmaxenergy:
@@ -332,7 +332,7 @@ def readContinuum(filename):
         p = line.strip().split()
         if p[0][0] in digits:
             outenergy.append(float(p[1]))
-            outval.append(cnvtNum(p[2]) * 1e44 / norm_factor_cm3)
+            outval.append(cnvtNum(p[5]) * 1e44 / norm_factor_cm3)
     return (np.array(outenergy), np.array(outval))
 
 def interpretDumpedContinuum(T):
